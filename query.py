@@ -8,7 +8,7 @@ load_dotenv()
 
 # Load models
 embedder = SentenceTransformer("all-MiniLM-L6-v2")
-groq_client = Groq(api_key=os.getenv("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"))
+groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 # Connect to ChromaDB
 client = chromadb.PersistentClient(path="./chromadb_store")
