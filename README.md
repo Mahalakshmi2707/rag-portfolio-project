@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+---
+title: DocMind AI
+emoji: 🧠
+colorFrom: purple
+colorTo: teal
+sdk: streamlit
+sdk_version: 1.32.0
+app_file: app.py
+pinned: false
+---
+
 # 🧠 DocMind AI — Production RAG Application
 
 A production-grade **Retrieval Augmented Generation (RAG)** system that answers questions about documents with cited sources. Built with hybrid retrieval, cross-encoder reranking, and citation enforcement.
@@ -111,3 +123,20 @@ rag-portfolio-project/
 
 ## 👩‍💻 Author
 **Mahalakshmi** — Aspiring AI/LLM Engineer
+=======
+---
+title: Docmind Ai
+emoji: 📚
+colorFrom: gray
+colorTo: purple
+sdk: gradio
+sdk_version: 6.14.0
+python_version: '3.13'
+app_file: app.py
+pinned: false
+license: mit
+short_description: 'A document based questioning application '
+---
+
+Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+>>>>>>> 942625306d463c4dd8d2b081495c0f23e97f8921
