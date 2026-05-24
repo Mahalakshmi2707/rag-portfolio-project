@@ -188,8 +188,11 @@ embedder, reranker, groq_client = load_models()
 
 # ---- IN-MEMORY CHROMADB ----
 def get_fresh_collection():
+    import uuid
     client = chromadb.EphemeralClient()
-    collection = client.get_or_create_collection(name="docs")
+    # Use unique collection name each time to guarantee fresh start
+    collection_name = f"docs_{uuid.uuid4().hex[:8]}"
+    collection = client.get_or_create_collection(name=collection_name)
     return collection
 
 # ---- INGEST FUNCTION ----
@@ -297,12 +300,15 @@ with st.sidebar:
     if uploaded_file is not None:
         if uploaded_file.name != st.session_state.filename:
             with st.spinner("Processing document..."):
-                st.session_state.collection = get_fresh_collection()
-                st.session_state.history = []
-                count = ingest_pdf(uploaded_file, st.session_state.collection)
-                st.session_state.filename = uploaded_file.name
-                st.session_state.chunks_count = count
+               st.session_state.collection = get_fresh_collection()
+               st.session_state.history = []
+               st.session_state.filename = None
+               st.session_state.chunks_count = 0
+               count = ingest_pdf(uploaded_file, st.session_state.collection)
+               st.session_state.filename = uploaded_file.name
+               st.session_state.chunks_count = count
             st.success(f"✅ Ready! {count} chunks indexed.")
+            st.rerun()
 
     st.markdown("---")
 
