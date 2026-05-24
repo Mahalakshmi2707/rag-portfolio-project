@@ -9,6 +9,44 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
+def auto_ingest():
+    """Auto ingest PDF on startup if ChromaDB is empty"""
+    collection = load_chromadb()
+    existing = collection.get()
+    
+    if len(existing["ids"]) > 0:
+        return  # already ingested
+    
+    pdf_path = "docs/ai methodology.pdf"
+    if not os.path.exists(pdf_path):
+        return  # no PDF found
+    
+    from pypdf import PdfReader
+    from langchain_text_splitters import RecursiveCharacterTextSplitter
+    
+    print("Auto ingesting document...")
+    reader = PdfReader(pdf_path)
+    full_text = ""
+    for page in reader.pages:
+        full_text += page.extract_text() or ""
+    
+    splitter = RecursiveCharacterTextSplitter(
+        chunk_size=500,
+        chunk_overlap=50
+    )
+    chunks = splitter.split_text(full_text)
+    embedder_model = SentenceTransformer("all-MiniLM-L6-v2")
+    
+    for i, chunk in enumerate(chunks):
+        embedding = embedder_model.encode(chunk).tolist()
+        collection.add(
+            documents=[chunk],
+            embeddings=[embedding],
+            ids=[f"chunk_{i}"]
+        )
+    print(f"Auto ingestion complete — {len(chunks)} chunks stored.")
+
 # ---- PAGE CONFIG ----
 st.set_page_config(
     page_title="DocMind AI",
@@ -234,6 +272,7 @@ def load_chromadb():
 
 embedder, reranker, groq_client = load_models()
 collection = load_chromadb()
+auto_ingest()
 
 # ---- RETRIEVAL FUNCTION ----
 def retrieve_and_answer(question):
