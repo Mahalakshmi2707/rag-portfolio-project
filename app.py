@@ -285,13 +285,15 @@ def retrieve_and_answer(question):
     vector_chunks = vector_results["documents"][0]
 
     # BM25 search
+    # BM25 search
     all_data = collection.get()
     all_chunks = all_data["documents"]
+
+    if not all_chunks:
+        return "No documents found. Please wait for ingestion to complete.", [], [], 0
+
     tokenized_chunks = [chunk.split() for chunk in all_chunks]
     bm25 = BM25Okapi(tokenized_chunks)
-    bm25_scores = bm25.get_scores(question.split())
-    top_bm25_indices = np.argsort(bm25_scores)[::-1][:5]
-    bm25_chunks = [all_chunks[i] for i in top_bm25_indices]
 
     # Combine
     seen = set()
