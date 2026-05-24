@@ -1,15 +1,13 @@
-<<<<<<< HEAD
 ---
 title: DocMind AI
 emoji: 🧠
 colorFrom: purple
 colorTo: teal
 sdk: streamlit
-sdk_version: 1.32.0
+sdk_version: "1.32.0"
 app_file: app.py
 pinned: false
 ---
-
 # 🧠 DocMind AI — Production RAG Application
 
 A production-grade **Retrieval Augmented Generation (RAG)** system that answers questions about documents with cited sources. Built with hybrid retrieval, cross-encoder reranking, and citation enforcement.
