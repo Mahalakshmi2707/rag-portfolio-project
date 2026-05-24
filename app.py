@@ -360,19 +360,21 @@ if ask:
         })
 
         # Metrics
+        top_score = scores[0] if scores else "N/A"
+
         st.markdown(f"""
         <div class="metrics-row">
-            <div class="metric-box">
+              <div class="metric-box">
                 <div class="metric-value">{total}</div>
                 <div class="metric-label">Candidates Retrieved</div>
             </div>
             <div class="metric-box">
-                <div class="metric-value">3</div>
-                <div class="metric-label">After Reranking</div>
+               <div class="metric-value">3</div>
+               <div class="metric-label">After Reranking</div>
             </div>
             <div class="metric-box">
-                <div class="metric-value">{scores[0]}</div>
-                <div class="metric-label">Top Relevance Score</div>
+               <div class="metric-value">{top_score}</div>
+               <div class="metric-label">Top Relevance Score</div>
             </div>
         </div>
         """, unsafe_allow_html=True)
