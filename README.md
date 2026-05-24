@@ -15,9 +15,7 @@ A production-grade **Retrieval Augmented Generation (RAG)** system that answers 
 ---
 
 ## 🚀 Live Demo
-> Coming soon — deploying to Hugging Face Spaces
-
----
+👉 [Try it live on Hugging Face](https://huggingface.co/spaces/maha-1234/docmind-ai)
 
 ## 🏗️ Architecture
 
@@ -138,3 +136,5 @@ short_description: 'A document based questioning application '
 
 Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
 >>>>>>> 942625306d463c4dd8d2b081495c0f23e97f8921
+
+
