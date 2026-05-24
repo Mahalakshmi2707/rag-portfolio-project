@@ -294,6 +294,9 @@ def retrieve_and_answer(question):
 
     tokenized_chunks = [chunk.split() for chunk in all_chunks]
     bm25 = BM25Okapi(tokenized_chunks)
+    bm25_scores = bm25.get_scores(question.split())
+    top_bm25_indices = np.argsort(bm25_scores)[::-1][:5]
+    bm25_chunks = [all_chunks[i] for i in top_bm25_indices]
 
     # Combine
     seen = set()
